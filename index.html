@@ -1,0 +1,211 @@
+<html>
+	<head>
+     
+		<!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
+	    <!-- <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+	    <!-- Latest compiled and minified CSS -->
+
+	    <script src="{{ static_url('js/jquery/jquery-1.11.3.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery/jquery-ui.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery.csv-0.71.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery/jquery.highlighttextarea.min.js') }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ static_url('js/index.js') }}"></script> <!-- JavaScript -->
+	    <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+        
+            <!-- DataTables CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ static_url('css/jquery.dataTables.min.css') }}">
+            <!-- DataTables -->
+            <script type="text/javascript" charset="utf8" src="{{ static_url('js/jquery/jquery.dataTables.min.js') }}"></script> 
+      
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" href="{{ static_url('css/bootstrap-theme.min.css') }}">
+	    <!-- Font Awesome -->
+	    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css')  }}">
+	    <!-- Highlight Text area -->
+	    <link rel="stylesheet" href="{{ static_url('css/jquery.highlighttextarea.min.css')  }}">
+	    <!-- Latest compiled and minified JavaScript -->
+	    <script src="{{ static_url('js/jquery/bootstrap.min.js') }}"></script>
+
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/header.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/login_page.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/homePage.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/admin.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/index.css') }}" />
+	    <link rel="shortcut icon" href="{{ static_url('BellLogos/Bell_icon_v2.ico') }}" />
+	    <title>On Demand End-to-End Monitoring</title>
+	</head>
+	<body style="background-color:#cccccc">
+		<header class="navbar" id="navBarHeader" role="banner" style="background-color:#66b2ff;">
+  			<div id="header">
+    			<div class="navbar-header" style="margin-left:20px;">
+    				<img id="logo" align="left" src="{{ static_url('BellLogos/bell_pantone301_250.jpg') }}">
+      				<h1 href="#" id="brand" class="navbar-brand" style="color:white;">On-Demand End-to-End Monitoring</h1>
+				</div>
+    			<div id="tester">
+    			</div>
+  			</div>
+		</header>
+			<!--VINCENT ADDITION STARTS HERE -->
+			<div class="navbar navbar-inverse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#"> Home</a></li>
+					<li><a href="https://tor63vdseppoe01.isp.intranet.bell.ca/support" target="_blank" > Support</a></li>
+					<li><a href="https://tor63vdseppoe01.isp.intranet.bell.ca/config" target="_blank" > Configuration</a></li>
+				</ul>
+			</div> 
+			
+  			<!--
+  			<div align="right" style="margin-right: 20px;padding-top: 20px;"><h4><form action="/auth/logout/"><button type="submit" class="btn btn-primary">Logout</button></form></h4></div>-->
+		
+
+		<div class="container">
+			<div class="row">
+				<div class="alert alert-danger" id="errormessage" style="display:none;"></div>
+				<h2>PPPoE Sessions Summary</h2>
+				<table class="table table-bordered display compact" id="getPPPoESessionsTable">
+        			<thead style="background-color:#f5f5f5;">
+          				<tr align="right">
+          				  <th>Action</th>
+			              <th>PPPoE Session</th>
+			              <th>Username</th>
+			              <th>IP Address</th>
+			          </tr>
+			      </thead>
+			      <tbody>
+        		<!--	<thead style="background-color:#f5f5f5;">
+          				<tr align="right">
+          				  <th>Action</th>
+			              <th>PPPoE Session</th>
+			              <th>Username</th>
+			              <th>IP Address</th>
+			          </tr>
+			      </thead>
+			      <tbody> -->
+			      	{% if pppoeInfo %}
+			      		{% for ppp in pppoeInfo %}
+						    <tr>
+						      	<td>
+						      		<button type="submit" class="btn btn-danger" id="{{ ppp['pppoeSession'][3] }}:{{ ppp['ipAddr'] }}"onclick="deletePPPoE(this.id)">
+						      			<i class="fa fa-trash"></i>Stop
+						      		</button>
+								</td>
+						      	<td>{{ ppp["pppoeSession"] }}</td>
+						      	<td>{{ ppp["username"] }}</td>
+						      	<td>{{ ppp["ipAddr"] }}</td>
+						    </tr>
+				      	{% end %}
+				    {% end %}
+			      </tbody>
+			    </table>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<h2><i class="fa fa-terminal"></i> Test Form</h2>
+				    <div class = "form-horizontal">
+				        <div class="form-group">
+				            <label class="control-label col-sm-4" for="numPPPoeTestsLabel">Start a PPPoE Session:</label>
+					        <div class="col-sm-4">
+					        	<div class="row">
+					            	<label for="username" class = "col-sm-5 control-label" >Username: </label>
+									<div class = "col-sm-7">
+	         							<input type = "text" class = "form-control" id="username" required>
+	      							</div>
+	      						</div>
+	      						<br/>
+	      						<div class="row">
+					            	<label for="password"  class = "col-sm-5 control-label" >Password: </label>
+									<div class="col-sm-7">
+	         							<input type="password" class = "form-control" id="password" required>
+	      							</div>
+	      						</div>
+	      						<br/>
+                                <div class="row">
+                                    <div class="checkbox">
+                                        <label class = "col-sm-12 control-label" style="font-weight: bold;">Default User Session</label><input id="defaultUser" type="checkbox" value="defaultUser" onclick="validate()">
+                                    </div>
+                                </div>
+                                <br/>
+	      						<div class="row">
+									<div class = "col-sm-12">
+						        		<input id="vlanId" type="text" placeholder="BRAS Name" required>
+	      							</div>
+	      						</div>
+	      					</div>						    
+					       	<div class="col-sm-2">
+					        	<button class="btn btn-primary" onclick="createPPPoE();">Start</button>       
+				        	</div>
+				        </div>
+				        <hr>
+				        <br />
+				        <br />
+				        <div class="form-group">
+				            <label class="control-label col-sm-4" for="PPPoEToTestLabel">Test PPPoE session:</label>
+				            <div class="col-sm-6">    	
+							    <select class="form-control" id="testPPPoeSessionNum"></select>
+							</div>
+				        	<div class="col-sm-2">
+					        	<button class="btn btn-warning" onclick="testPPPoE();">Test</button>       
+				        	</div>
+				        </div>
+				        <div class="form-group">
+				            <label class="control-label col-sm-4"></label>
+				            <div class="col-sm-6" id="testOptions">
+					            <label><input name="typeCmd" type="radio" value="CURL" checked>CURL</label>
+							    <label><input name="typeCmd" type="radio" value="DIG">DIG</label>
+							    <label><input name="typeCmd" type="radio" value="PING">PING</label>
+							    <label><input name="typeCmd" type="radio" value="TRACEROUTE">TRACEROUTE</label>
+				                <label><input type="text" class = "form-control" value="cbc.ca" id="domain"></label>
+				        	</div>
+				        </div>
+				        <div class="form-group">
+				        	<label class="control-label col-sm-4">SpeedTest Servers: </label>
+				      		<div class="col-sm-6">    	
+							    <select class="form-control" id="speedTestServers">
+							    	<option value="3905">Bell - North Bay, ON</option>
+  									<option value="3906">Bell - Greater Sudbury, ON</option>
+  									<option value="3908">Bell Aliant - Saint John, NB</option>
+  									<option value="3907">Bell Aliant - Halifax, NS</option>
+  									<option value="3845">Bell Aliant - St. John's, NL</option>
+							    </select>
+
+							</div>
+				        	<button class="btn btn-info" onclick="speedTest();"><i class="fa fa-tachometer"></i> Test</button>   
+  						</div> 
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<div class="row">
+						<div class="col-md-6 col-sm-6">
+							<h2><i class="fa fa-tasks"></i> Test Output <i class="fa fa-cog fa-spin" id="loadingSpinner" style="display:none;"></i></h2>
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<h2>
+								<select class="form-control" id="outputStyle">
+									<option value="append">Append to Previous Output</option>
+									<option value="clean">Clean Previous Output</option>
+								</select>
+							</h2>
+						</div>
+					</div>
+		    		<textarea rows="15" cols="65" id="testOutputTextArea"></textarea>
+		    		<div class="row">
+						<div class="col-md-4 col-sm-4">
+  							<h2>
+  								<button class="btn btn-success" onclick="downloadOutput();">
+  									<i class="fa fa-download"></i> Download Test Output
+  								</button>      
+  							</h2>
+  						</div>
+					</div> 
+			   <!-- <div id="testOutputTextArea" style="overflow:auto;border:1px solid black;width:600px;height:420px"></div>-->
+				</div>
+			</div>
+		</div>
+
+		<footer class="text-center"> 
+	        	<h3><i class="fa fa-tachometer" style="padding-right: 10px;"></i>End-to-End Monitoring</h3>
+	        	<h5><i class="fa fa-code" style="padding-right: 10px;"></i>Created by Technology Development Team</h5>
+	  			<h6>© Bell Canada, 2015. </h6>
+		</footer>
+

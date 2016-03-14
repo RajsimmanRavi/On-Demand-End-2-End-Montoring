@@ -1,0 +1,168 @@
+<html>
+	<head>
+     
+		<!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
+	    <!-- <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+	    <!-- Latest compiled and minified CSS -->
+
+	    <script src="{{ static_url('js/jquery/jquery-1.11.3.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery/jquery-ui.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery.csv-0.71.min.js') }}" type="text/javascript" charset="utf-8"></script>
+	    <script src="{{ static_url('js/jquery/jquery.highlighttextarea.min.js') }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ static_url('js/config.js') }}"></script> <!-- JavaScript -->
+	    <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+        
+            <!-- DataTables CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ static_url('css/jquery.dataTables.min.css') }}">
+            <!-- DataTables -->
+            <script type="text/javascript" charset="utf8" src="{{ static_url('js/jquery/jquery.dataTables.min.js') }}"></script> 
+      
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" href="{{ static_url('css/bootstrap-theme.min.css') }}">
+	    <!-- Font Awesome -->
+	    <link rel="stylesheet" href="{{ static_url('css/font-awesome.min.css')  }}">
+	    <!-- Highlight Text area -->
+	    <link rel="stylesheet" href="{{ static_url('css/jquery.highlighttextarea.min.css')  }}">
+	    <!-- Latest compiled and minified JavaScript -->
+	    <script src="{{ static_url('js/jquery/bootstrap.min.js') }}"></script>
+
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/header.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/login_page.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/homePage.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/admin.css') }}" />
+	    <link rel="stylesheet" type="text/css" href="{{ static_url('css/index.css') }}" />
+	    <link rel="shortcut icon" href="{{ static_url('BellLogos/Bell_icon_v2.ico') }}" />
+	    <title>On Demand End-to-End Monitoring</title>
+	</head>
+	<body>
+		<header class="navbar" id="navBarHeader" role="banner">
+  			<div id="header">
+    			<div class="navbar-header" style="margin-left:20px;">
+    				<img id="logo" align="left" src="{{ static_url('BellLogos/bell_pantone301_250.jpg') }}">
+      				<h1 href="#" id="brand" class="navbar-brand">On-Demand End-to-End Monitoring</h1>
+    			</div>
+    			<div id="tester">
+    			</div>
+  			</div>
+  			<!--
+  			<div align="right" style="margin-right: 20px;padding-top: 20px;"><h4><form action="/auth/logout/"><button type="submit" class="btn btn-primary">Logout</button></form></h4></div>-->
+		</header>
+
+    <!--VINCENT ADDITION STARTS HERE -->
+      <div class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#"> Home</a></li>
+          <li><a href="https://tor63vdseppoe01.isp.intranet.bell.ca/support" target="_blank" > Support</a></li>
+          <li><a href="https://tor63vdseppoe01.isp.intranet.bell.ca/config" target="_blank" > Configuration</a></li>
+        </ul>
+      </div> 
+		<div class="container"  style="min-height:80%;">
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<h3><i class="fa fa-file-text"></i> Configure BRAS List</h3>
+				</div>
+			</div>
+			<div clas="row">
+				<div class="alert alert-success" id="success" style="display:none;"></div>
+				<div class="alert alert-warning" id="error" style="display:none;" ></div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="panel panel-primary" id="modifyBRASList">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> Modify BRAS List</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="form-group">
+                        	<label class="col-sm-6 control-label">Search using Inner VLAN ID:</label>
+                            <div class="col-sm-4">
+                              <input id="vlanId" type="text" required>
+                            </div>
+                            <div class="col-sm-2">
+                              <button class="btn btn-primary" id="searchVlan" onclick="searchUsingVlan()" ><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<div class="col-sm-8">
+                        		<h4><i class="fa fa-pencil-square-o"></i> Edit BRAS</h4>
+                        	</div>
+                        </div>
+	                    <div class="form-group">
+	                        <label class="col-sm-6 control-label">BRAS Name:</label>
+	                        <div class="col-sm-6">
+	                        	<input id="brasName" class="form-control" name="brasName" required>
+	                       	</div>
+	                    </div>
+	                    <br/>
+	                    <div class="form-group">
+	                        <label class="col-sm-6 control-label">BRAS IP Address:</label>
+	                        <div class="col-sm-6">
+	                            <input id="brasIP" class="form-control" name="brasIP" required>
+	                      	</div>
+	                    </div>
+	                   </div>
+	                   <div class="panel-footer">
+	                   		<div class="form-group text-center">
+		                    	<span>
+		                	    	<button type="submit" class="btn btn-primary" onclick="submitChange()">Submit</button>
+		                    	</span>
+		                	</div>
+		                </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-6 col-sm-offset-6">
+                    <div class="panel panel-success" id="addEntryBRASList" style="border-color:green;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-plus-square"></i> Add Entry to BRAS List</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label class="col-sm-6 control-label">New BRAS Name:</label>
+                            <div class="col-sm-6">
+                              <input id="newBrasName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-6 control-label">New BRAS IP Address:</label>
+                            <div class="col-sm-6">
+                              <input id="newBrasIp" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-6 control-label">Inner VLAN ID:</label>
+                            <div class="col-sm-6">
+                              <input id="innerVlanId" class="form-control" required>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                        	<label class="col-sm-6 control-label">Outer VLAN ID:</label>
+                            <div class="col-sm-6">
+                              <input id="outerVlanId" class="form-control" required>
+                            </div>
+                        </div>  
+                      </div>
+                      <div class="panel-footer" style="margin-top: -105px;">
+	                   	<div class="form-group text-center">
+		                    <span><button type="submit" class="btn btn-success" onclick="submitAdd()">Submit</button></span>
+		                </div>
+		              </div>
+            		</div>
+            	</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <h2>
+                  <button class="btn btn-warning" onclick="downloadCurrList();">
+                    <i class="fa fa-download"></i> Download Current BRAS List
+                  </button>      
+                </h2>
+              </div>
+            </div> 
+		  </div>
+	  	<footer class="footer" style="margin-top: 20%;">
+      		<div class="container text-center" id="footer">
+	        	<h3><i class="fa fa-tachometer" style="padding-right: 10px;"></i>End-to-End Monitoring</h3>
+	        	<h5><i class="fa fa-code" style="padding-right: 10px;"></i>Created by Technology Development Team</h5>
+	  			<h6>© Bell Canada, 2015. </h6>
+      		</div>
+      	</footer>
+	</body>
+</html>

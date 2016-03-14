@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'bell_semiBold';
+  src: url('../fonts/bellslim_semibold-webfont.woff');
+}  
+
+#vmTableheader{
+    font-family: 'bell_semiBold';
+}
+
+#userTableheader{    
+    font-family: 'bell_semiBold';
+}
+
+

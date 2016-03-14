@@ -1,0 +1,30 @@
+#refreshBtn{
+	float: right;
+	margin-right: 10px;
+}
+
+#helpBtn{
+	float: right;
+}
+
+#customTable{
+	padding-top: 25px;
+}
+
+#actionStatusTextArea{
+	font-family: Courier;
+	font-weight: bold;
+	height: 200px;
+}
+
+#logEntriesTextArea{
+	font-family: Courier;
+	font-weight: bold;
+	height: 200px;
+}
+
+#tester{
+	float: right;
+	padding-right: 200px;
+	padding-top: 40px;
+}
